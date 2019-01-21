@@ -11,15 +11,20 @@ function Player(game) {
     this.img.src = 'img/player.png';
     
     // medidas de la imagen a representar en el canvas
-    this.w = 50;
-    this.h = 75;
-  
-    this.vy = 1;
+    this.w = 20;
+    this.h = 35;
+
+    //velocidad
+    this.vx = 20;
+    this.vy = 5;
+
+    this.keys = [];
+    this.jumping = false;
+    this.setListeners();
 
 }
 
 Player.prototype.draw = function() {
-this.img.onload = function() {
     this.game.ctx.drawImage(
         this.img,
         this.x,
@@ -27,23 +32,36 @@ this.img.onload = function() {
         this.w,
         this.h
         );
-}.bind(this);
 }
 
 Player.prototype.moveRight = function(){
-    this.x += 4;
+    this.x += this.vx;
 }
 
 Player.prototype.moveLeft = function(){
-    this.x -= 4;
+    this.x -= this.vx;
+}
+
+Player.prototype.jump = function(){
+    if (this.keys[this.game.keys.SPACE] && this.jumping) {
+        
+    }
+}
+
+Player.prototype.move = function(){
+    if (this.keys[this.game.keys.LEFT_KEY]) {
+        this.moveLeft();
+    } else if (this.keys[this.game.keys.RIGHT_KEY]) {
+        this.moveRight();
+    }
 }
 
 Player.prototype.setListeners = function() {
-    document.onkeydown = function(event) {
-        if (event.keyCode === this.game.keys.LEFT_KEY) {
-            this.moveLeft();
-        } else if (event.keyCode == this.game.keys.RIGHT_KEY) {
-            this.moveRight();
-        }
-    }.bind(this);
+    document.onkeydown = (function (e) {
+        this.keys[e.keyCode] = true;
+    }.bind(this));
+
+    document.onkeyup = (function (e) {
+        delete this.keys[e.keyCode];
+    }.bind(this));
 }
