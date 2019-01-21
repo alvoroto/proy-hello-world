@@ -1,11 +1,11 @@
 function Player(game) {
     this.game = game;
    
-    this.x = this.game.canvas.width * 0.08;
+    this.x = 0;
   
     // guardar posición original (suelo)
     this.y0 = this.game.canvas.height * 0.8;
-    this.y = this.y0;
+    this.y = 30;
   
     this.img = new Image();
     this.img.src = 'img/player.png';
@@ -15,7 +15,7 @@ function Player(game) {
     this.h = 35;
 
     //velocidad
-    this.vx = 20;
+    this.vx = 5;
     this.vy = 5;
 
     this.keys = [];
@@ -35,23 +35,28 @@ Player.prototype.draw = function() {
 }
 
 Player.prototype.moveRight = function(){
+    var cop = Object.assign({}, this);
     this.x += this.vx;
+    if(this.colisionTF()){
+        this.x = cop.x
+    }
+
 }
 
 Player.prototype.moveLeft = function(){
-      
+    var cop = Object.assign({}, this);
     this.x -= this.vx;
-   
-    
+    if(this.colisionTF()){
+        this.x = cop.x
+    }
 }
 
 Player.prototype.jump = function(){
-        this.vy -= 20;
-        this.jumping = true;
+    this.vy -= 20;
+    this.jumping = true;
 }
 
 Player.prototype.move = function(){
-    if(!this.colision()){
     if (this.keys[this.game.keys.LEFT_KEY]) {
         this.moveLeft();
     } else if (this.keys[this.game.keys.RIGHT_KEY]) {
@@ -60,7 +65,7 @@ Player.prototype.move = function(){
     if (this.keys[this.game.keys.SPACE] && !this.jumping) {
         this.jump();
     }
-    }
+
 }
 
 Player.prototype.setListeners = function() {
@@ -74,25 +79,42 @@ Player.prototype.setListeners = function() {
 }
 
 Player.prototype.gravity = function(){
+    var cop = Object.assign({}, this);
     this.vy += 1.5;
     this.y += this.vy;
-}
+    if(this.colisionTF()){
+        this.y = cop.y
+        this.vy = 0;
+        this.jumping = false;
+    }
 
-Player.prototype.placeFree = function(xNew, yNew){
-    var temp = { x: xNew, y: yNew, w: this.w, h: this.h};
 }
 
 Player.prototype.colision = function(){
     var col = false
+    var p = undefined;
     this.game.platforms.forEach(function(platform){
         if (this.x + this.w >= platform.x &&
             platform.x + platform.w >= this.x &&
             this.y + this.h >= platform.y &&
             platform.y + platform.h >= this.y
             ){
-                col =  true
-            }else{
-                col =  false
+               p = platform
+            }
+    }.bind(this))
+    return p;
+}
+
+Player.prototype.colisionTF = function(){
+    var col = false
+    var p = undefined;
+    this.game.platforms.forEach(function(platform){
+        if (this.x + this.w > platform.x &&
+            platform.x + platform.w >= this.x &&
+            this.y + this.h > platform.y &&
+            platform.y + platform.h > this.y
+            ){
+              col = true;
             }
     }.bind(this))
     return col;
