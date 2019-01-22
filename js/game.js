@@ -7,7 +7,8 @@ var Game = {
         SPACE: 32,
         LEFT_KEY: 37,
         RIGHT_KEY: 39,
-        D_KEY: 68
+        D_KEY: 68,
+        F_KEY: 70
     },
     platforms: [],
     collectableItems: [],
@@ -19,8 +20,8 @@ var Game = {
         this.background = new Background(this);
         this.player = new Player(this)
         //creacion de las plataformas provisionales
-        var platform_1 = new Platform(this, 300, 470, 400, 200);
-        var platform_2 = new Platform(this, 0, 500, 300, 40);
+        var platform_1 = new Platform(this, 300, 470, 1000, 200);
+        var platform_2 = new Platform(this, 0, 500, 500, 40);
         var platform_3 = new Platform(this, 635, 250, 100, 40);
         var platform_4 = new Platform(this, 400, 250, 100, 40);
         var platform_5 = new Platform(this, 300, 370, 150, 50);

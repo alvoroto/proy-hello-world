@@ -24,6 +24,7 @@ function Player(game) {
     this.doubleJumping = false;
     this.jumpDown = false;
     this.dashDown = false;
+    this.breakDownDown = false;
 
     this.collectableItems = [];
 
@@ -35,6 +36,9 @@ function Player(game) {
     this.dashVelocity = 12;
 
     this.abailableDoubleJump = true;
+
+    this.abailableBreakDown = true;
+    this.breakDownVelocity = 22;
 
     this.setListeners();
 
@@ -113,6 +117,19 @@ Player.prototype.dash = function(){
     }
 }
 
+Player.prototype.breakDown = function(){
+    if(this.abailableBreakDown && this.jumping){
+        this.ly = this.y
+        for(var i=0; i<=this.breakDownVelocity; i++){
+            this.ly = this.y
+            this.y += i;
+            if(this.platformColision()){
+                this.y = this.ly
+            }
+        }
+    } 
+}
+
 Player.prototype.move = function(){
     if (this.keys[this.game.keys.LEFT_KEY]) {
         this.moveLeft();
@@ -139,6 +156,11 @@ Player.prototype.setListeners = function() {
                 this.dash();
                 this.dashDown = true;
             }
+        } else if (e.keyCode == this.game.keys.F_KEY) {
+            if(!this.breakDownDown){
+                this.breakDown();
+                this.breakDownDown = true;
+            }
         } else {
             this.keys[e.keyCode] = true;
         }
@@ -149,6 +171,8 @@ Player.prototype.setListeners = function() {
             this.jumpDown = false;
         }else if (e.keyCode == this.game.keys.D_KEY) {
             this.dashDown = false;
+        }else if (e.keyCode == this.game.keys.F_KEY) {
+            this.breakDownDown = false;
         }else {
             delete this.keys[e.keyCode];
         }
