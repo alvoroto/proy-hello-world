@@ -22,10 +22,17 @@ function Player(game) {
     this.keys = [];
     this.jumping = false;
     this.jumpDown = false;
+
+    this.collectableItems = [];
+
+
     this.setListeners();
 
 }
 
+/*
+    Dibuja el personaje en pantalla
+*/
 Player.prototype.draw = function() {
     this.game.ctx.drawImage(
         this.img,
@@ -36,23 +43,32 @@ Player.prototype.draw = function() {
         );
 }
 
+/*
+    Mueve hacia la derecha y si detecta una colision vuelve a la posicion anterior
+*/
 Player.prototype.moveRight = function(){
     this.lx = this.x
     this.x += this.vx;
-    if(this.colision()){
+    if(this.platformColision()){
         this.x = this.lx
     }
 
 }
 
+/*
+    Mueve hacia la izquierda y si detecta una colision vuelve a la posicion anterior
+*/
 Player.prototype.moveLeft = function(){
     this.lx = this.x
     this.x -= this.vx;
-    if(this.colision()){
+    if(this.platformColision()){
         this.x = this.lx
     }
 }
 
+/*
+    Salta si le esta permitido
+*/
 Player.prototype.jump = function(){
     if(!this.jumping){
         this.jumping = true;
@@ -68,6 +84,12 @@ Player.prototype.move = function(){
     }
 }
 
+/*
+    Captura las pulsaciones de teclas
+    Se guarda en un array la tecla pulsada en la posicion keycode con valor true en caso de que este pulsada
+    Si se deja de pulsar, si quita del array la posicion keycode
+    En caso de que se pulse espacio comprueba que tengas que levantar la tecla para volver a saltar
+*/
 Player.prototype.setListeners = function() {
     document.onkeydown = (function (e) {
         if (e.keyCode == this.game.keys.SPACE) {
@@ -89,21 +111,30 @@ Player.prototype.setListeners = function() {
     }.bind(this));
 }
 
+/*
+   Para la gravedad se da aceleracion aumentando la velocidad
+   Se cambia la posicion sumando la velocidad a la posicion
+   Se controla que haya colision con el suelo para podel saltar
+   Si hay colision vuelvo a la posicion anterior y pongo la velocidad se resetea
+*/
 Player.prototype.gravity = function(){
-    var cop = Object.assign({}, this);
+    this.ly = this.y;
     this.vy += 1.5;
     this.y += this.vy;
-    if(this.colisionFloor()){
+    if(this.platformColisionFloor()){
         this.jumping = false;
     }
-    if(this.colision()){
-        this.y = cop.y
+    if(this.platformColision()){
+        this.y = this.ly;
         this.vy = 0;
     }
 }
 
-Player.prototype.colisionElem = function(){
-    var col = false
+/*
+    Coprueba si hay colision y devuelve el elemento con el que colisiona
+*/
+Player.prototype.platformColisionElem = function(elements){
+    var col = false;
     var p = undefined;
     this.game.platforms.forEach(function(platform){
         if (this.x + this.w >= platform.x &&
@@ -117,9 +148,11 @@ Player.prototype.colisionElem = function(){
     return p;
 }
 
-Player.prototype.colision = function(){
+/*
+    Coprueba si hay colision y devuelve true
+*/
+Player.prototype.platformColision = function(elements){
     var col = false
-    var p = undefined;
     this.game.platforms.forEach(function(platform){
         if (this.x + this.w > platform.x &&
             platform.x + platform.w >= this.x &&
@@ -132,9 +165,11 @@ Player.prototype.colision = function(){
     return col;
 }
 
-Player.prototype.colisionFloor = function(){
+/*
+    Coprueba si hay colision con la base, como si fuese el suelo
+*/
+Player.prototype.platformColisionFloor = function(){
     var col = false
-    var p = undefined;
     this.game.platforms.forEach(function(platform){
         if (this.x + this.w > platform.x &&
             platform.x + platform.w >= this.x &&
@@ -142,6 +177,23 @@ Player.prototype.colisionFloor = function(){
             platform.y + platform.h > this.y + this.h
             ){
               col = true;
+            }
+    }.bind(this))
+    return col;
+}
+
+/*
+    Coprueba si hay colision con el item y devuelve true
+*/
+Player.prototype.itemColision = function(elements){
+    var col = -1
+    this.game.collectableItems.forEach(function(item, index){
+        if (this.x + this.w > item.x &&
+            item.x + item.w >= this.x &&
+            this.y + this.h > item.y &&
+            item.y + item.h > this.y
+            ){
+              col = index;
             }
     }.bind(this))
     return col;
