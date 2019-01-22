@@ -21,13 +21,20 @@ function Player(game) {
 
     this.keys = [];
     this.jumping = false;
+    this.doubleJumping = false;
     this.jumpDown = false;
     this.dashDown = false;
 
     this.collectableItems = [];
 
+    this.gravityVelocity= 1.5;
+
+    this.jumpVelocity = 20;
+
     this.abailableDash = true;
-    this.dashVelocity = 20;
+    this.dashVelocity = 12;
+
+    this.abailableDoubleJump = true;
 
     this.setListeners();
 
@@ -75,12 +82,16 @@ Player.prototype.moveLeft = function(){
 Player.prototype.jump = function(){
     if(!this.jumping){
         this.jumping = true;
-        this.vy -= 20;
+        this.vy -= this.jumpVelocity;
+    }else if(!this.doubleJumping && this.abailableDoubleJump){
+        this.doubleJumping = true;
+        this.vy -= this.jumpVelocity;
     }
 }
 
 /*
-    Salta si le esta permitido
+    Hace el dash si le esta permitido
+    para ello comprueba las colisiones pixel a pixel con el for
 */
 Player.prototype.dash = function(){
     if(this.abailableDash && this.keys[this.game.keys.LEFT_KEY]){
@@ -152,10 +163,11 @@ Player.prototype.setListeners = function() {
 */
 Player.prototype.gravity = function(){
     this.ly = this.y;
-    this.vy += 1.5;
+    this.vy += this.gravityVelocity;
     this.y += this.vy;
     if(this.platformColisionFloor()){
         this.jumping = false;
+        this.doubleJumping = false;
     }
     if(this.platformColision()){
         this.y = this.ly;
