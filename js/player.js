@@ -66,14 +66,9 @@ Player.prototype.move = function(){
     } else if (this.keys[this.game.keys.RIGHT_KEY]) {
         this.moveRight();
     }
-    // if (this.keys[this.game.keys.SPACE] && !this.jumping) {
-    //     this.jump();
-    // }
-
 }
 
 Player.prototype.setListeners = function() {
-    console.log(this.jumpDown)
     document.onkeydown = (function (e) {
         if (e.keyCode == this.game.keys.SPACE) {
             if(!this.jumpDown){
@@ -92,13 +87,6 @@ Player.prototype.setListeners = function() {
             delete this.keys[e.keyCode];
         }
     }.bind(this));
-
-    // document.onkeypress = (function (e) {
-    //     if (e.keyCode == this.game.keys.SPACE && !this.jumping) {
-    //         this.jump();
-    //     } 
-    // }.bind(this));
-
 }
 
 Player.prototype.gravity = function(){
@@ -112,8 +100,6 @@ Player.prototype.gravity = function(){
         this.y = cop.y
         this.vy = 0;
     }
-    
-
 }
 
 Player.prototype.colisionElem = function(){
@@ -149,7 +135,6 @@ Player.prototype.colision = function(){
 Player.prototype.colisionFloor = function(){
     var col = false
     var p = undefined;
-   
     this.game.platforms.forEach(function(platform){
         if (this.x + this.w > platform.x &&
             platform.x + platform.w >= this.x &&
