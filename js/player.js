@@ -22,9 +22,12 @@ function Player(game) {
     this.keys = [];
     this.jumping = false;
     this.jumpDown = false;
+    this.dashDown = false;
 
     this.collectableItems = [];
 
+    this.abailableDash = true;
+    this.dashVelocity = 20;
 
     this.setListeners();
 
@@ -76,6 +79,29 @@ Player.prototype.jump = function(){
     }
 }
 
+/*
+    Salta si le esta permitido
+*/
+Player.prototype.dash = function(){
+    if(this.abailableDash && this.keys[this.game.keys.LEFT_KEY]){
+        for(var i=0; i<=this.dashVelocity; i++){
+            this.lx = this.x
+            this.x -= i;
+            if(this.platformColision()){
+                this.x = this.lx
+            }
+        }
+    } else if(this.abailableDash && this.keys[this.game.keys.RIGHT_KEY]){
+        for(var i=0; i<=this.dashVelocity; i++){
+            this.lx = this.x
+            this.x += i;
+            if(this.platformColision()){
+                this.x = this.lx
+            }
+        }
+    }
+}
+
 Player.prototype.move = function(){
     if (this.keys[this.game.keys.LEFT_KEY]) {
         this.moveLeft();
@@ -97,7 +123,12 @@ Player.prototype.setListeners = function() {
                 this.jump();
                 this.jumpDown = true;
             }
-        } else{
+        } else if (e.keyCode == this.game.keys.D_KEY) {
+            if(!this.dashDown){
+                this.dash();
+                this.dashDown = true;
+            }
+        } else {
             this.keys[e.keyCode] = true;
         }
     }.bind(this));
@@ -105,6 +136,8 @@ Player.prototype.setListeners = function() {
     document.onkeyup = (function (e) {
         if (e.keyCode == this.game.keys.SPACE) {
             this.jumpDown = false;
+        }else if (e.keyCode == this.game.keys.D_KEY) {
+            this.dashDown = false;
         }else {
             delete this.keys[e.keyCode];
         }

@@ -3,15 +3,16 @@ var Game = {
     ctx: undefined,
     fps: 100,
     keys: {
-        TOP_KEY : 38,
-        SPACE : 32,
-        LEFT_KEY : 37,
-        RIGHT_KEY : 39
+        TOP_KEY: 38,
+        SPACE: 32,
+        LEFT_KEY: 37,
+        RIGHT_KEY: 39,
+        D_KEY: 68
     },
     platforms: [],
     collectableItems: [],
 
-    init: function(canvasId){
+    init: function (canvasId) {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext("2d");
         this.fps = 60;
@@ -41,7 +42,7 @@ var Game = {
 
         this.interval = setInterval(function () {
             this.clear();
-          
+
             this.player.gravity();
             //Player floor position
             // if (this.player.y > 520){
@@ -52,45 +53,47 @@ var Game = {
             this.player.move();
             this.detectItemCollision();
             this.drawAll();
-           
+
         }.bind(this), 1000 / this.fps);
     },
 
-     //limpieza de la pantalla
+    //limpieza de la pantalla
     clear: function () {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
 
-    drawPlatforms: function (){
-        this.platforms.forEach(function(platform){
+    drawPlatforms: function () {
+        this.platforms.forEach(function (platform) {
             platform.draw();
         })
     },
 
-    drawCollectItems: function (){
-        this.collectableItems.forEach(function(collectItem){
-            if(collectItem.isActive){
+    drawCollectItems: function () {
+        this.collectableItems.forEach(function (collectItem) {
+            if (collectItem.isActive) {
                 collectItem.draw();
             }
         })
     },
 
-    drawAll: function() {
+    drawAll: function () {
         this.background.draw();
         this.drawPlatforms();
         this.drawCollectItems();
         this.player.draw();
     },
 
-    detectItemCollision: function(){
+    detectItemCollision: function () {
         var colItem = this.player.itemColision()
-        if(colItem >= 0){
-            this.collectableItems[colItem].isActive = false;
-            this.player.collectableItems.push(this.collectableItems[colItem])
-            if(this.collectableItems.length > colItem+1){
-                this.collectableItems[colItem+1].isActive = true;
+        if (colItem >= 0) {
+            if (this.collectableItems[colItem].isActive) {
+                this.collectableItems[colItem].isActive = false;
+                this.player.collectableItems.push(this.collectableItems[colItem])
+                if (this.collectableItems.length > colItem + 1) {
+                    this.collectableItems[colItem + 1].isActive = true;
+                }
             }
-            this.collectableItems.splice(colItem, 1)
+            // this.collectableItems.splice(colItem, 1)
         }
     }
 }
