@@ -2,10 +2,11 @@ function Player(game) {
     this.game = game;
    
     this.x = 0;
-  
-    // guardar posición original (suelo)
-    this.y0 = this.game.canvas.height * 0.8;
     this.y = 30;
+
+    //last position
+    this.lx = this.x;
+    this.ly = this.y;
   
     this.img = new Image();
     this.img.src = 'img/player.png';
@@ -36,19 +37,19 @@ Player.prototype.draw = function() {
 }
 
 Player.prototype.moveRight = function(){
-    var cop = Object.assign({}, this);
+    this.lx = this.x
     this.x += this.vx;
     if(this.colision()){
-        this.x = cop.x
+        this.x = this.lx
     }
 
 }
 
 Player.prototype.moveLeft = function(){
-    var cop = Object.assign({}, this);
+    this.lx = this.x
     this.x -= this.vx;
     if(this.colision()){
-        this.x = cop.x
+        this.x = this.lx
     }
 }
 
