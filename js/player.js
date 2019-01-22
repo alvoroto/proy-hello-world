@@ -20,6 +20,7 @@ function Player(game) {
 
     this.keys = [];
     this.jumping = false;
+    this.jumpDown = false;
     this.setListeners();
 
 }
@@ -37,7 +38,7 @@ Player.prototype.draw = function() {
 Player.prototype.moveRight = function(){
     var cop = Object.assign({}, this);
     this.x += this.vx;
-    if(this.colisionTF()){
+    if(this.colision()){
         this.x = cop.x
     }
 
@@ -46,14 +47,16 @@ Player.prototype.moveRight = function(){
 Player.prototype.moveLeft = function(){
     var cop = Object.assign({}, this);
     this.x -= this.vx;
-    if(this.colisionTF()){
+    if(this.colision()){
         this.x = cop.x
     }
 }
 
 Player.prototype.jump = function(){
-    this.vy -= 20;
-    this.jumping = true;
+    if(!this.jumping){
+        this.jumping = true;
+        this.vy -= 20;
+    }
 }
 
 Player.prototype.move = function(){
@@ -62,35 +65,57 @@ Player.prototype.move = function(){
     } else if (this.keys[this.game.keys.RIGHT_KEY]) {
         this.moveRight();
     }
-    if (this.keys[this.game.keys.SPACE] && !this.jumping) {
-        this.jump();
-    }
+    // if (this.keys[this.game.keys.SPACE] && !this.jumping) {
+    //     this.jump();
+    // }
 
 }
 
 Player.prototype.setListeners = function() {
+    console.log(this.jumpDown)
     document.onkeydown = (function (e) {
-        this.keys[e.keyCode] = true;
+        if (e.keyCode == this.game.keys.SPACE) {
+            if(!this.jumpDown){
+                this.jump();
+                this.jumpDown = true;
+            }
+        } else{
+            this.keys[e.keyCode] = true;
+        }
     }.bind(this));
 
     document.onkeyup = (function (e) {
-        delete this.keys[e.keyCode];
+        if (e.keyCode == this.game.keys.SPACE) {
+            this.jumpDown = false;
+        }else {
+            delete this.keys[e.keyCode];
+        }
     }.bind(this));
+
+    // document.onkeypress = (function (e) {
+    //     if (e.keyCode == this.game.keys.SPACE && !this.jumping) {
+    //         this.jump();
+    //     } 
+    // }.bind(this));
+
 }
 
 Player.prototype.gravity = function(){
     var cop = Object.assign({}, this);
     this.vy += 1.5;
     this.y += this.vy;
-    if(this.colisionTF()){
-        this.y = cop.y
-        this.vy = 0;
+    if(this.colisionFloor()){
         this.jumping = false;
     }
+    if(this.colision()){
+        this.y = cop.y
+        this.vy = 0;
+    }
+    
 
 }
 
-Player.prototype.colision = function(){
+Player.prototype.colisionElem = function(){
     var col = false
     var p = undefined;
     this.game.platforms.forEach(function(platform){
@@ -105,7 +130,7 @@ Player.prototype.colision = function(){
     return p;
 }
 
-Player.prototype.colisionTF = function(){
+Player.prototype.colision = function(){
     var col = false
     var p = undefined;
     this.game.platforms.forEach(function(platform){
@@ -113,6 +138,22 @@ Player.prototype.colisionTF = function(){
             platform.x + platform.w >= this.x &&
             this.y + this.h > platform.y &&
             platform.y + platform.h > this.y
+            ){
+              col = true;
+            }
+    }.bind(this))
+    return col;
+}
+
+Player.prototype.colisionFloor = function(){
+    var col = false
+    var p = undefined;
+   
+    this.game.platforms.forEach(function(platform){
+        if (this.x + this.w > platform.x &&
+            platform.x + platform.w >= this.x &&
+            this.y + this.h> platform.y &&
+            platform.y + platform.h > this.y + this.h
             ){
               col = true;
             }
