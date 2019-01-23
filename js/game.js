@@ -14,12 +14,17 @@ var Game = {
     collectableItems: [],
 
     init: function (canvasId) {
+        
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext("2d");
         this.fps = 60;
+
+        this.reset();
+
         this.background = new Background(this);
         this.player = new Player(this)
         //creacion de las plataformas provisionales
+
         var platform_1 = new Platform(this, 300, 470, 1000, 200);
         var platform_2 = new Platform(this, 0, 500, 500, 40);
         var platform_3 = new Platform(this, 635, 250, 100, 40);
@@ -44,6 +49,13 @@ var Game = {
         this.interval = setInterval(function () {
             this.clear();
 
+            this.framesCounter++;
+
+            // controlamos que frameCounter no sea superior a 1000
+            if (this.framesCounter > 1000) {
+                this.framesCounter = 0;
+            }
+
             this.player.gravity();
             //Player floor position
             // if (this.player.y > 520){
@@ -56,6 +68,13 @@ var Game = {
             this.drawAll();
 
         }.bind(this), 1000 / this.fps);
+    },
+
+    //reseteamos todos los elementos del juego para empezar en un estado limpio
+    reset: function () {
+        this.background = new Background(this);
+        this.player = new Player(this)
+        this.framesCounter = 0;
     },
 
     //limpieza de la pantalla

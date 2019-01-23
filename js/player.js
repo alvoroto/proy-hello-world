@@ -9,17 +9,30 @@ function Player(game) {
     this.ly = this.y;
   
     this.img = new Image();
-    this.img.src = 'img/player.png';
+    this.img.src = 'img/p_low.png';
+
+    // número de imágenes diferentes
+    this.img.frames = 7;
+    this.img.framesTo = 0;
+    this.img.framesFrom = 0;
+    this.img.frameIndex = 0;
+    this.img.framesX = 0;
+    this.img.framesY = 0;
+    this.img.framesW = 0;
+    this.img.framesH = 0;
+   
+
     
     // medidas de la imagen a representar en el canvas
-    this.w = 20;
-    this.h = 35;
+    this.w = 40;
+    this.h = 20;
 
     //velocidad
-    this.vx = 5;
+    this.vx = 29;
     this.vy = 5;
 
     this.keys = [];
+
     this.jumping = false;
     this.doubleJumping = false;
     this.jumpDown = false;
@@ -33,9 +46,9 @@ function Player(game) {
     this.jumpVelocity = 20;
 
     this.abailableDash = true;
-    this.dashVelocity = 12;
+    this.dashVelocity = 15;
 
-    this.abailableDoubleJump = true;
+    this.abailableDoubleJump = !false;
 
     this.abailableBreakDown = true;
     this.breakDownVelocity = 22;
@@ -50,6 +63,10 @@ function Player(game) {
 Player.prototype.draw = function() {
     this.game.ctx.drawImage(
         this.img,
+        this.img.frameIndex * Math.floor(this.img.width / this.img.frames)+this.img.framesX,
+        this.img.framesY,
+        Math.floor(this.img.width / this.img.frames)+this.img.framesW,
+        this.img.height+this.img.framesH,
         this.x,
         this.y,
         this.w,
@@ -64,7 +81,9 @@ Player.prototype.moveRight = function(){
     this.lx = this.x
     this.x += this.vx;
     if(this.platformColision()){
-        this.x = this.lx
+        for(var i = this.vx; this.platformColision(); i--){
+            this.x -= 1
+        }
     }
 
 }
@@ -76,7 +95,9 @@ Player.prototype.moveLeft = function(){
     this.lx = this.x
     this.x -= this.vx;
     if(this.platformColision()){
-        this.x = this.lx
+        for(var i = this.vx; this.platformColision(); i--){
+            this.x += 1
+        }
     }
 }
 
@@ -89,7 +110,7 @@ Player.prototype.jump = function(){
         this.vy -= this.jumpVelocity;
     }else if(!this.doubleJumping && this.abailableDoubleJump){
         this.doubleJumping = true;
-        this.vy -= this.jumpVelocity;
+        this.vy -= (this.vy+this.jumpVelocity);
     }
 }
 
@@ -119,23 +140,28 @@ Player.prototype.dash = function(){
 
 Player.prototype.breakDown = function(){
     if(this.abailableBreakDown && this.jumping){
-        this.ly = this.y
-        for(var i=0; i<=this.breakDownVelocity; i++){
-            this.ly = this.y
-            this.y += i;
-            if(this.platformColision()){
-                this.y = this.ly
-            }
-        }
+        this.vy += this.breakDownVelocity;
+        // for(var i=0; i<=this.breakDownVelocity; i++){
+        //     this.ly = this.y
+        //     this.y += i;
+        //     if(this.platformColision()){
+        //         this.y = this.ly
+        //     }
+        // }
     } 
 }
 
 Player.prototype.move = function(){
     if (this.keys[this.game.keys.LEFT_KEY]) {
         this.moveLeft();
+        this.setAnimationParams(4,6)
     } else if (this.keys[this.game.keys.RIGHT_KEY]) {
         this.moveRight();
+        this.setAnimationParams(1,3)
+    }else{
+        this.setAnimationParams(0,0)
     }
+    this.animateRun();
 }
 
 /*
@@ -267,4 +293,36 @@ Player.prototype.itemColision = function(elements){
     }.bind(this))
     return col;
 }
+
+Player.prototype.animateImg = function() {
+    // se va cambiando el frame. Cuanto mayor es el módulo, mas lento se mueve el personaje
+    if (this.game.framesCounter % 2 === 0) {
+      this.img.frameIndex += 1;
+  
+      // Si el frame es el último, se vuelve al primero
+      if (this.img.frameIndex > 25) this.img.frameIndex = 0;
+    }
+  };
+
+  Player.prototype.animateRun = function() {
+      
+    // se va cambiando el frame. Cuanto mayor es el módulo, mas lento se mueve el personaje
+    if(this.img.frameIndex<this.img.framesFrom){
+        this.img.frameIndex=this.img.framesFrom
+    }
+    if (this.game.framesCounter % 10 === 0) {
+      this.img.frameIndex += 1;
+      // Si el frame es el último, se vuelve al primero
+      if (this.img.frameIndex > this.img.framesTo) this.img.frameIndex = this.img.framesFrom;
+    }
+  };
+
+  Player.prototype.setAnimationParams = function(framesFrom, framesTo, framesX=0, framesY=0, framesW=0, framesH=0) {
+    this.img.framesFrom = framesFrom;
+    this.img.framesTo = framesTo;
+    this.img.framesX = framesX;
+    this.img.framesY = framesY;
+    this.img.framesW = framesW;
+    this.img.framesH = framesH;
+  };
 
