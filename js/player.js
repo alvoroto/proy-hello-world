@@ -28,7 +28,8 @@ function Player(game) {
     this.h = 20;
 
     //velocidad
-    this.vx = 29;
+    this.vxInitial = 5;
+    this.vx = 5;
     this.vy = 5;
 
     this.keys = [];
@@ -46,7 +47,10 @@ function Player(game) {
     this.jumpVelocity = 20;
 
     this.abailableDash = true;
-    this.dashVelocity = 15;
+    this.dashVelocity = 20;
+    this.dashCheck = 0;
+    this.dahsFrames = 10;
+    this.dashActivate = false;
 
     this.abailableDoubleJump = !false;
 
@@ -120,21 +124,27 @@ Player.prototype.jump = function(){
 */
 Player.prototype.dash = function(){
     if(this.abailableDash && this.keys[this.game.keys.LEFT_KEY]){
-        for(var i=0; i<=this.dashVelocity; i++){
-            this.lx = this.x
-            this.x -= i;
-            if(this.platformColision()){
-                this.x = this.lx
-            }
-        }
+        this.dashCheck = this.game.framesCounter + this.dahsFrames;
+        this.vx = this.dashVelocity;
+        this.dashActivate = true;
+        // for(var i=0; i<=this.dashVelocity; i++){
+        //     this.lx = this.x
+        //     this.x -= i;
+        //     if(this.platformColision()){
+        //         this.x = this.lx
+        //     }
+        // }
     } else if(this.abailableDash && this.keys[this.game.keys.RIGHT_KEY]){
-        for(var i=0; i<=this.dashVelocity; i++){
-            this.lx = this.x
-            this.x += i;
-            if(this.platformColision()){
-                this.x = this.lx
-            }
-        }
+        this.dashCheck = this.game.framesCounter + this.dahsFrames;
+        this.vx = this.dashVelocity;
+        this.dashActivate = true;
+        // for(var i=0; i<=this.dashVelocity; i++){
+        //     this.lx = this.x
+        //     this.x += i;
+        //     if(this.platformColision()){
+        //         this.x = this.lx
+        //     }
+        // }
     }
 }
 
@@ -152,6 +162,9 @@ Player.prototype.breakDown = function(){
 }
 
 Player.prototype.move = function(){
+    if(this.game.framesCounter > this.dashCheck % 1000){
+        this.vx = this.vxInitial;
+    }
     if (this.keys[this.game.keys.LEFT_KEY]) {
         this.moveLeft();
         this.setAnimationParams(4,6)
@@ -305,6 +318,19 @@ Player.prototype.animateImg = function() {
   };
 
   Player.prototype.animateRun = function() {
+      
+    // se va cambiando el frame. Cuanto mayor es el módulo, mas lento se mueve el personaje
+    if(this.img.frameIndex<this.img.framesFrom){
+        this.img.frameIndex=this.img.framesFrom
+    }
+    if (this.game.framesCounter % 10 === 0) {
+      this.img.frameIndex += 1;
+      // Si el frame es el último, se vuelve al primero
+      if (this.img.frameIndex > this.img.framesTo) this.img.frameIndex = this.img.framesFrom;
+    }
+  };
+
+  Player.prototype.animateDash = function() {
       
     // se va cambiando el frame. Cuanto mayor es el módulo, mas lento se mueve el personaje
     if(this.img.frameIndex<this.img.framesFrom){
