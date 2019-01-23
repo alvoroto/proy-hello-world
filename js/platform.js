@@ -1,11 +1,12 @@
-function Platform (game, x, y, w, h, isBreakable = false){
+function Platform (game, x, y, w, h, isDashBreakable = false, isDownBreakable = false){
     this.id =
     this.game = game;
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
-    this.isBreakable = isBreakable;
+    this.isDashBreakable = isDashBreakable;
+    this.isDownBreakable = isDownBreakable;
 }
 
 Platform.prototype.draw = function(){

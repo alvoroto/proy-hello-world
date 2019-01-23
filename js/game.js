@@ -25,13 +25,17 @@ var Game = {
         this.player = new Player(this)
         //creacion de las plataformas provisionales
 
-        var platform_1 = new Platform(this, 300, 470, 1000, 200);
+        var platform_1 = new Platform(this, 300, 470, 1000, 200, false, true);
         var platform_2 = new Platform(this, 0, 500, 500, 40);
         var platform_3 = new Platform(this, 635, 250, 100, 40);
         var platform_4 = new Platform(this, 400, 250, 100, 40);
-        var platform_5 = new Platform(this, 300, 370, 150, 50);
+        var platform_5 = new Platform(this, 300, 270, 100, 150);
         var platform_6 = new Platform(this, 740, 150, 100, 40);
         var platform_7 = new Platform(this, 400, 400, 100, 140, true);
+        var platform_8 = new Platform(this, 400, 150, 100, 40, false, true);
+        var platform_9= new Platform(this, 350, 150, 50, 200);
+        var platform_10 = new Platform(this, 500, 150, 50, 200);
+        var platform_11 = new Platform(this, 740, 355, 100, 40);
         this.platforms.push(platform_1);
         this.platforms.push(platform_2);
         this.platforms.push(platform_3);
@@ -39,11 +43,15 @@ var Game = {
         this.platforms.push(platform_5);
         this.platforms.push(platform_6);
         this.platforms.push(platform_7);
+        this.platforms.push(platform_8);
+        this.platforms.push(platform_9);
+        this.platforms.push(platform_10);
+        this.platforms.push(platform_11);
         //
         //creacion de los collectItems provisionales
-        var item_1 = new Item(this, 100, 460, 20, 20, true);
-        var item_2 = new Item(this, 450, 220, 20, 20, false);
-        var item_3 = new Item(this, 800, 120, 20, 20, false);
+        var item_1 = new Item(this, 100, 460, 60, 15, true);
+        var item_2 = new Item(this, 450, 220, 60, 15, false);
+        var item_3 = new Item(this, 800, 120, 60, 15, false);
         this.collectableItems.push(item_1);
         this.collectableItems.push(item_2);
         this.collectableItems.push(item_3);
@@ -93,7 +101,9 @@ var Game = {
     drawCollectItems: function () {
         this.collectableItems.forEach(function (collectItem) {
             if (collectItem.isActive) {
+                //collectItem.animateItem();
                 collectItem.draw();
+                collectItem.animateItem();
             }
         })
     },

@@ -56,7 +56,8 @@ function Player(game) {
     this.abailableDoubleJump = !false;
 
     this.abailableBreakDown = true;
-    this.breakDownVelocity = 22;
+    this.breakDownVelocity = 40;
+    this.breakingDown = false;
 
     this.setListeners();
 
@@ -165,6 +166,7 @@ Player.prototype.breakDown = function(){
 Player.prototype.move = function(){
     if(this.game.framesCounter > this.dashCheck % 1000){
         this.vx = this.vxInitial;
+        this.dashing = false;
     }
     if (this.keys[this.game.keys.LEFT_KEY]) {
         this.moveLeft();
@@ -277,7 +279,12 @@ Player.prototype.platformColision = function(elements){
     }.bind(this))
 
     if(this.dashing){
-        if(p && p.isBreakable){
+        if(p && p.isDashBreakable){
+            this.game.platforms.splice(indexP,1)
+        }
+    }
+    if(this.vy>=this.breakDownVelocity){
+        if(p && p.isDownBreakable){
             this.game.platforms.splice(indexP,1)
         }
     }
