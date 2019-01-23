@@ -45,12 +45,13 @@ function Player(game) {
     this.gravityVelocity= 1.5;
 
     this.jumpVelocity = 20;
+    this.doubleJumpVelocity = 15;
 
     this.abailableDash = true;
     this.dashVelocity = 20;
     this.dashCheck = 0;
     this.dahsFrames = 10;
-    this.dashActivate = false;
+    this.dashing = false;
 
     this.abailableDoubleJump = !false;
 
@@ -114,7 +115,7 @@ Player.prototype.jump = function(){
         this.vy -= this.jumpVelocity;
     }else if(!this.doubleJumping && this.abailableDoubleJump){
         this.doubleJumping = true;
-        this.vy -= (this.vy+this.jumpVelocity);
+        this.vy -= (this.vy+this.doubleJumpVelocity);
     }
 }
 
@@ -126,7 +127,7 @@ Player.prototype.dash = function(){
     if(this.abailableDash && this.keys[this.game.keys.LEFT_KEY]){
         this.dashCheck = this.game.framesCounter + this.dahsFrames;
         this.vx = this.dashVelocity;
-        this.dashActivate = true;
+        this.dashing = true;
         // for(var i=0; i<=this.dashVelocity; i++){
         //     this.lx = this.x
         //     this.x -= i;
@@ -137,7 +138,7 @@ Player.prototype.dash = function(){
     } else if(this.abailableDash && this.keys[this.game.keys.RIGHT_KEY]){
         this.dashCheck = this.game.framesCounter + this.dahsFrames;
         this.vx = this.dashVelocity;
-        this.dashActivate = true;
+        this.dashing = true;
         // for(var i=0; i<=this.dashVelocity; i++){
         //     this.lx = this.x
         //     this.x += i;
@@ -261,15 +262,25 @@ Player.prototype.platformColisionElem = function(elements){
 */
 Player.prototype.platformColision = function(elements){
     var col = false
-    this.game.platforms.forEach(function(platform){
+    var p = undefined;
+    var indexP = 0;
+    this.game.platforms.forEach(function(platform, index){
         if (this.x + this.w > platform.x &&
             platform.x + platform.w >= this.x &&
             this.y + this.h > platform.y &&
             platform.y + platform.h > this.y
             ){
               col = true;
+              p = platform;
+              indexP = index;
             }
     }.bind(this))
+
+    if(this.dashing){
+        if(p && p.isBreakable){
+            this.game.platforms.splice(indexP,1)
+        }
+    }
     return col;
 }
 

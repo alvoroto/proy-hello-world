@@ -31,12 +31,14 @@ var Game = {
         var platform_4 = new Platform(this, 400, 250, 100, 40);
         var platform_5 = new Platform(this, 300, 370, 150, 50);
         var platform_6 = new Platform(this, 740, 150, 100, 40);
+        var platform_7 = new Platform(this, 400, 400, 100, 140, true);
         this.platforms.push(platform_1);
         this.platforms.push(platform_2);
         this.platforms.push(platform_3);
         this.platforms.push(platform_4);
         this.platforms.push(platform_5);
         this.platforms.push(platform_6);
+        this.platforms.push(platform_7);
         //
         //creacion de los collectItems provisionales
         var item_1 = new Item(this, 100, 460, 20, 20, true);
