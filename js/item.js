@@ -1,5 +1,5 @@
-function Item(game,src, x, y, w, h, isActive, damage=false){
-    this.game = game;
+function Item(ctx,src, x, y, w, h, isActive, damage=false){
+    this.ctx = ctx;
     this.x = x;
     this.y = y;
     this.w = w;
@@ -22,7 +22,7 @@ function Item(game,src, x, y, w, h, isActive, damage=false){
 
 Item.prototype.draw = function(){
     if(this.isActive){
-        this.game.ctx.drawImage(
+        this.ctx.drawImage(
             this.img,
             this.img.frameIndex * Math.floor(this.img.width / this.img.frames)+this.img.framesX,
             this.img.framesY,
@@ -36,13 +36,13 @@ Item.prototype.draw = function(){
     }
 }
 
-Item.prototype.animateItem = function() {
+Item.prototype.animateItem = function(framesCounter) {
       
     // se va cambiando el frame. Cuanto mayor es el módulo, mas lento se mueve el personaje
     if(this.img.frameIndex<this.img.framesFrom){
         this.img.frameIndex=this.img.framesFrom
     }
-    if (this.game.framesCounter % 10 === 0) {
+    if (framesCounter % 10 === 0) {
       this.img.frameIndex += 1;
       // Si el frame es el último, se vuelve al primero
       if (this.img.frameIndex > this.img.framesTo) this.img.frameIndex = this.img.framesFrom;
@@ -59,44 +59,44 @@ Item.prototype.animateItem = function() {
   };
 
 
-function HelloItem(game, x, y, w, h, isActive){
-    Item.call(this, game, x, y, w, h, isActive);
-    this.type = "hello";
-    this.img = new Image();
-    this.img.src = 'img/hello_anim.png';
-    // número de imágenes diferentes
-    this.setAnimationParams(0,7)
-    this.img.frames = 8;
-    this.img.frameIndex = 1;
-}
-HelloItem.prototype = Object.create(Item.prototype);
-HelloItem.prototype.constructor = HelloItem;
+// function HelloItem(game, x, y, w, h, isActive){
+//     Item.call(this, game, x, y, w, h, isActive);
+//     this.type = "hello";
+//     this.img = new Image();
+//     this.img.src = 'img/hello_anim.png';
+//     // número de imágenes diferentes
+//     this.setAnimationParams(0,7)
+//     this.img.frames = 8;
+//     this.img.frameIndex = 1;
+// }
+// HelloItem.prototype = Object.create(Item.prototype);
+// HelloItem.prototype.constructor = HelloItem;
 
-function WorldItem(game, x, y, w, h, isActive){
-    Item.call(this, game, x, y, w, h, isActive);
-    this.type = "world";
-    this.img = new Image();
-    this.img.src = 'img/world_anim.png';
-    // número de imágenes diferentes
-    this.setAnimationParams(0,7)
-    this.img.frames = 8;
-    this.img.frameIndex = 1;
-}
-WorldItem.prototype = Object.create(Item.prototype);
-WorldItem.prototype.constructor = WorldItem;
+// function WorldItem(game, x, y, w, h, isActive){
+//     Item.call(this, game, x, y, w, h, isActive);
+//     this.type = "world";
+//     this.img = new Image();
+//     this.img.src = 'img/world_anim.png';
+//     // número de imágenes diferentes
+//     this.setAnimationParams(0,7)
+//     this.img.frames = 8;
+//     this.img.frameIndex = 1;
+// }
+// WorldItem.prototype = Object.create(Item.prototype);
+// WorldItem.prototype.constructor = WorldItem;
 
-function EndItem(game, x, y, w, h, isActive){
-    Item.call(this, game, x, y, w, h, isActive);
-    this.type = "end";
-    this.img = new Image();
-    this.img.src = 'img/p_low_end_anim.png';
-    // número de imágenes diferentes
-    this.setAnimationParams(0,7)
-    this.img.frames = 8;
-    this.img.frameIndex = 1;
-}
-EndItem.prototype = Object.create(Item.prototype);
-EndItem.prototype.constructor = EndItem;
+// function EndItem(game, x, y, w, h, isActive){
+//     Item.call(this, game, x, y, w, h, isActive);
+//     this.type = "end";
+//     this.img = new Image();
+//     this.img.src = 'img/p_low_end_anim.png';
+//     // número de imágenes diferentes
+//     this.setAnimationParams(0,7)
+//     this.img.frames = 8;
+//     this.img.frameIndex = 1;
+// }
+// EndItem.prototype = Object.create(Item.prototype);
+// EndItem.prototype.constructor = EndItem;
 
 
 

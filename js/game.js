@@ -27,7 +27,7 @@ var Game = {
 
         this.reset();
 
-        this.background = new Background(this);
+        this.background = new Background(this.ctx, this.canvas.width, this.canvas.height);
         this.player = new Player(this)
 
         this.loadData();
@@ -59,7 +59,7 @@ var Game = {
 
     //reseteamos todos los elementos del juego para empezar en un estado limpio
     reset: function () {
-        this.background = new Background(this);
+        this.background = new Background(this.ctx, this.canvas.width, this.canvas.height);
         this.player = new Player(this)
         this.framesCounter = 0;
     },
@@ -79,7 +79,7 @@ var Game = {
         this.collectableItems.forEach(function (collectItem) {
             if (collectItem.isActive) {
                 collectItem.draw();
-                collectItem.animateItem();
+                collectItem.animateItem(this.framesCounter);
             }
         })
     },
@@ -88,7 +88,7 @@ var Game = {
         this.damageItems.forEach(function (damageItem) {
             if (damageItem.isActive) {
                 damageItem.draw();
-                damageItem.animateItem();
+                damageItem.animateItem(this.framesCounter);
             }
         })
     },
@@ -120,6 +120,7 @@ var Game = {
         var colItem = this.player.damageColision()
         if (colItem >= 0) {
             if (this.damageItems[colItem].isActive) {
+                this.loadLevelData()
                 this.loadLevel();
             }
         }
@@ -152,18 +153,18 @@ var Game = {
            
             //collectable items
             level.collectableItems.forEach(function(collectableItem){
-                nivel.collectableItems.push(new Item(this, collectableItem.src, collectableItem.x, collectableItem.y, collectableItem.w, collectableItem.h, collectableItem.isActive))
+                nivel.collectableItems.push(new Item(this.ctx, collectableItem.src, collectableItem.x, collectableItem.y, collectableItem.w, collectableItem.h, collectableItem.isActive))
             }.bind(this))
 
              //damage items
             if(level.damageItems){
                 level.damageItems.forEach(function(damageItem){
-                    nivel.damageItems.push(new Item(this, damageItem.src, damageItem.x, damageItem.y, damageItem.w, damageItem.h, damageItem.isActive, damageItem.damage))
+                    nivel.damageItems.push(new Item(this.ctx, damageItem.src, damageItem.x, damageItem.y, damageItem.w, damageItem.h, damageItem.isActive, damageItem.damage))
                 }.bind(this))
             }
 
             //background
-            nivel.background = new Background(this, level.background.src);
+            nivel.background = new Background(this.ctx, this.canvas.width, this.canvas.height, level.background.src);
 
             //player
             nivel.playerX = level.player.x;
@@ -174,9 +175,35 @@ var Game = {
         }.bind(this))
     },
 
-    cloneArray: function(){
-        
-    }
+    loadLevelData: function(){
+            var nivel = new Level(this)
 
+            //platforms
+            totalGame[this.currentLevel].platforms.forEach(function(platform){
+                nivel.platforms.push(new Platform(this, platform.img, platform.x, platform.y, platform.w, platform.h, platform.isDashBreakable, platform.isDownBreakable));
+            }.bind(this))
+           
+            //collectable items
+            totalGame[this.currentLevel].collectableItems.forEach(function(collectableItem){
+                nivel.collectableItems.push(new Item(this.ctx, collectableItem.src, collectableItem.x, collectableItem.y, collectableItem.w, collectableItem.h, collectableItem.isActive))
+            }.bind(this))
+
+             //damage items
+            if(totalGame[this.currentLevel].damageItems){
+                totalGame[this.currentLevel].damageItems.forEach(function(damageItem){
+                    nivel.damageItems.push(new Item(this.ctx, damageItem.src, damageItem.x, damageItem.y, damageItem.w, damageItem.h, damageItem.isActive, damageItem.damage))
+                }.bind(this))
+            }
+
+            //background
+            nivel.background = new Background(this.ctx, this.canvas.width, this.canvas.height, totalGame[this.currentLevel].background.src);
+
+            //player
+            nivel.playerX = totalGame[this.currentLevel].player.x;
+            nivel.playerY = totalGame[this.currentLevel].player.y;
+
+
+            this.levels[this.currentLevel]=nivel;
+    }
 
 }
