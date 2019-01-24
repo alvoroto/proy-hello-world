@@ -51,7 +51,7 @@ var Game = {
         //creacion de los collectItems provisionales
         var item_1 = new HelloItem(this, 100, 460, 60, 15, true);
         var item_2 = new WorldItem(this, 450, 220, 60, 15, false);
-        var item_3 = new Item(this, 800, 120, 60, 15, false);
+        var item_3 = new EndItem(this, 800, 120, 50, 20, false);
         this.collectableItems.push(item_1);
         this.collectableItems.push(item_2);
         this.collectableItems.push(item_3);

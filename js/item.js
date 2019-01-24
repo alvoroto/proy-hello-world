@@ -73,7 +73,7 @@ HelloItem.prototype.constructor = HelloItem;
 
 function WorldItem(game, x, y, w, h, isActive){
     Item.call(this, game, x, y, w, h, isActive);
-    this.type = "hello";
+    this.type = "world";
     this.img = new Image();
     this.img.src = 'img/world_anim.png';
     // número de imágenes diferentes
@@ -82,6 +82,20 @@ function WorldItem(game, x, y, w, h, isActive){
     this.img.frameIndex = 1;
 }
 WorldItem.prototype = Object.create(Item.prototype);
-WorldItem.prototype.constructor = HelloItem;
+WorldItem.prototype.constructor = WorldItem;
+
+function EndItem(game, x, y, w, h, isActive){
+    Item.call(this, game, x, y, w, h, isActive);
+    this.type = "end";
+    this.img = new Image();
+    this.img.src = 'img/p_low_end_anim.png';
+    // número de imágenes diferentes
+    this.setAnimationParams(0,7)
+    this.img.frames = 8;
+    this.img.frameIndex = 1;
+}
+EndItem.prototype = Object.create(Item.prototype);
+EndItem.prototype.constructor = EndItem;
+
 
 
