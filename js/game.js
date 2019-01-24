@@ -105,18 +105,20 @@ var Game = {
     },
 
     changeLevel: function(){
+        debugger
         this.currentLevel++;
-        if(this.currentLevel <= this.levels){
-           // this.loadLevel();
+        if(this.currentLevel <= this.levels.length){
+           this.loadLevel();
         }
     },
 
     loadLevel: function(){
+        debugger
         this.platforms = this.levels[this.currentLevel].platforms;
         this.collectableItems = this.levels[this.currentLevel].collectableItems;
         this.background.img.src = this.levels[this.currentLevel].background.img.src;
-        //this.player.x = this.levels[this.currentLevel].player.x;
-        //this.player.y = this.levels[this.currentLevel].player.y;
+        this.player.x = this.levels[this.currentLevel].playerX;
+        this.player.y = this.levels[this.currentLevel].playerY;
     },
 
     loadData: function(){
@@ -135,6 +137,10 @@ var Game = {
 
             //background
             nivel.background = new Background(this, level.background.src);
+
+            //player
+            nivel.playerX = level.player.x;
+            nivel.playerY = level.player.y;
 
 
             this.levels.push(nivel);

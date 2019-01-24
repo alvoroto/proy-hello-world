@@ -4,5 +4,7 @@ function Level (game) {
     this.collectableItems = [];
     this.powerItems = [];
     this.background = new Background(game);
+    this.playerX = 0;
+    this.playerY = 0;
 }
 
