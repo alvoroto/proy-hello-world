@@ -51,6 +51,7 @@ var Game = {
             this.player.gravity();
             this.player.move();
             this.detectItemCollision();
+            this.detectDamageCollision();
             this.drawAll();
 
         }.bind(this), 1000 / this.fps);
@@ -83,10 +84,20 @@ var Game = {
         })
     },
 
+    drawDamageItems: function () {
+        this.damageItems.forEach(function (damageItem) {
+            if (damageItem.isActive) {
+                damageItem.draw();
+                damageItem.animateItem();
+            }
+        })
+    },
+
     drawAll: function () {
         this.background.draw();
         this.drawPlatforms();
         this.drawCollectItems();
+        this.drawDamageItems();
         this.player.draw();
     },
 
@@ -116,7 +127,7 @@ var Game = {
 
     changeLevel: function(){
         this.currentLevel++;
-        if(this.currentLevel <= this.levels.length){
+        if(this.currentLevel < this.levels.length){
            this.loadLevel();
         }
     },
@@ -124,6 +135,7 @@ var Game = {
     loadLevel: function(){
         this.platforms = this.levels[this.currentLevel].platforms;
         this.collectableItems = this.levels[this.currentLevel].collectableItems;
+        this.damageItems = this.levels[this.currentLevel].damageItems;
         this.background.img.src = this.levels[this.currentLevel].background.img.src;
         this.player.x = this.levels[this.currentLevel].playerX;
         this.player.y = this.levels[this.currentLevel].playerY;
@@ -135,13 +147,20 @@ var Game = {
 
             //platforms
             level.platforms.forEach(function(platform){
-                nivel.platforms.push(new Platform(this, platform.img, platform.x, platform.y, platform.w, platform.h));
+                nivel.platforms.push(new Platform(this, platform.img, platform.x, platform.y, platform.w, platform.h, platform.isDashBreakable, platform.isDownBreakable));
             }.bind(this))
            
             //collectable items
             level.collectableItems.forEach(function(collectableItem){
                 nivel.collectableItems.push(new Item(this, collectableItem.src, collectableItem.x, collectableItem.y, collectableItem.w, collectableItem.h, collectableItem.isActive))
             }.bind(this))
+
+             //damage items
+            if(level.damageItems){
+                level.damageItems.forEach(function(damageItem){
+                    nivel.damageItems.push(new Item(this, damageItem.src, damageItem.x, damageItem.y, damageItem.w, damageItem.h, damageItem.isActive, damageItem.damage))
+                }.bind(this))
+            }
 
             //background
             nivel.background = new Background(this, level.background.src);
@@ -153,5 +172,11 @@ var Game = {
 
             this.levels.push(nivel);
         }.bind(this))
+    },
+
+    cloneArray: function(){
+        
     }
+
+
 }

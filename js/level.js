@@ -2,6 +2,7 @@ function Level (game) {
     this.game = game;
     this.platforms = [];
     this.collectableItems = [];
+    this.damageItems = [];
     this.powerItems = [];
     this.background = new Background(game);
     this.playerX = 0;

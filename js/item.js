@@ -7,7 +7,7 @@ function Item(game,src, x, y, w, h, isActive, damage=false){
     this.isActive = isActive;
     this.type = "";
     this.img = new Image();
-    this.img.src = 'img/hello.png';
+    this.img.src = src;
     this.damage = damage;
     // número de imágenes diferentes
     this.img.frames = 8;
