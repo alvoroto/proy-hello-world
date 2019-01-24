@@ -3,6 +3,6 @@ function Level (game) {
     this.platforms = [];
     this.collectableItems = [];
     this.powerItems = [];
-    this.background = [];
+    this.background = new Background(game);
 }
 

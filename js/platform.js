@@ -20,7 +20,6 @@ function Platform (game, src, x, y, w, h, isDashBreakable = false, isDownBreakab
 }
 
 Platform.prototype.draw = function(){
-    console.log(this.img.frameIndex * Math.floor(this.img.width / this.img.frames)+this.img.framesX)
     this.game.ctx.drawImage(
         this.img,
         this.img.frameIndex * Math.floor(this.img.width / this.img.frames)+this.img.framesX,

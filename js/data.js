@@ -28,7 +28,7 @@ var totalGame = [
                 src: 'img/hello.png'
             }
         ],
-        background : {
+        background: {
             src:"img/black.png"
         },
         player : {
