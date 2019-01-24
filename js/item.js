@@ -1,4 +1,4 @@
-function Item(game,src, x, y, w, h, isActive){
+function Item(game,src, x, y, w, h, isActive, damage=false){
     this.game = game;
     this.x = x;
     this.y = y;
@@ -8,6 +8,7 @@ function Item(game,src, x, y, w, h, isActive){
     this.type = "";
     this.img = new Image();
     this.img.src = 'img/hello.png';
+    this.damage = damage;
     // número de imágenes diferentes
     this.img.frames = 8;
     this.img.framesTo = 7;

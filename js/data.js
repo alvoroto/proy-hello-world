@@ -3,14 +3,14 @@ var totalGame = [
         level: 1,
         platforms: [
             {
-                img: "img/hello.png",
+                img: "img/grey.png",
                 x: 0,
                 y: 540,
                 w: 1200,
                 h: 60
             },
             {
-                img: "img/hello.png",
+                img: "img/grey.png",
                 x: 0,
                 y: 0,
                 w: 60,
@@ -25,7 +25,7 @@ var totalGame = [
                 w: 60,
                 h: 15,
                 isActive: true,
-                src: 'img/hello.png'
+                src: 'img/green.png'
             }
         ],
         background: {
@@ -41,14 +41,14 @@ var totalGame = [
         level: 2,
         platforms: [
             {
-                img: "img/hello.png",
+                img: "img/grey.png",
                 x: 0,
                 y: 440,
                 w: 1200,
                 h: 60
             },
             {
-                img: "img/hello.png",
+                img: "img/grey.png",
                 x: 50,
                 y: 0,
                 w: 60,
@@ -63,7 +63,19 @@ var totalGame = [
                 w: 60,
                 h: 15,
                 isActive: true,
-                src: 'img/hello.png'
+                src: 'img/gree.png',
+                damage: false
+            }
+        ],
+        damageItems: [
+            {
+                x: 400,
+                y: 460,
+                w: 60,
+                h: 15,
+                isActive: true,
+                src: 'img/red.png',
+                damage: true
             }
         ],
         background: {

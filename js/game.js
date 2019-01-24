@@ -12,6 +12,7 @@ var Game = {
     },
     platforms: [],
     collectableItems: [],
+    damageItems: [],
     currentLevel:0,
     levels:[],
 
@@ -104,8 +105,16 @@ var Game = {
         }
     },
 
+    detectDamageCollision: function () {
+        var colItem = this.player.damageColision()
+        if (colItem >= 0) {
+            if (this.damageItems[colItem].isActive) {
+                this.loadLevel();
+            }
+        }
+    },
+
     changeLevel: function(){
-        debugger
         this.currentLevel++;
         if(this.currentLevel <= this.levels.length){
            this.loadLevel();
@@ -113,7 +122,6 @@ var Game = {
     },
 
     loadLevel: function(){
-        debugger
         this.platforms = this.levels[this.currentLevel].platforms;
         this.collectableItems = this.levels[this.currentLevel].collectableItems;
         this.background.img.src = this.levels[this.currentLevel].background.img.src;

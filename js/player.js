@@ -325,6 +325,20 @@ Player.prototype.itemColision = function(elements){
     return col;
 }
 
+Player.prototype.damageColision = function(elements){
+    var col = -1
+    this.game.damageItems.forEach(function(item, index){
+        if (this.x + this.w > item.x &&
+            item.x + item.w >= this.x &&
+            this.y + this.h > item.y &&
+            item.y + item.h > this.y
+            ){
+              col = index;
+            }
+    }.bind(this))
+    return col;
+}
+
 Player.prototype.animateImg = function() {
     // se va cambiando el frame. Cuanto mayor es el módulo, mas lento se mueve el personaje
     if (this.game.framesCounter % 2 === 0) {
