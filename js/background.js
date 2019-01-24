@@ -1,7 +1,7 @@
-function Background(game) {
+function Background(game, src="img/black.png") {
     this.game = game;
     this.img = new Image();
-    this.img.src = 'img/black.png';
+    this.img.src = src;
     
     this.x = 0;
     this.y = 0;

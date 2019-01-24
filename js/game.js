@@ -39,8 +39,9 @@ var Game = {
             level.collectableItems.forEach(function(collectableItem){
                 nivel.collectableItems.push(new Item(this, collectableItem.src, collectableItem.x, collectableItem.y, collectableItem.w, collectableItem.h, collectableItem.isActive))
             }.bind(this))
+            //background
+            this.background.img.src = level.background.src;
         }.bind(this))
-
         this.platforms = this.levels[this.loadLevel].platforms;
         this.collectableItems = this.levels[this.loadLevel].collectableItems;
         //creacion de las plataformas provisionales

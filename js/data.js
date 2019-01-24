@@ -27,6 +27,13 @@ var totalGame = [
                 isActive: true,
                 src: 'img/hello.png'
             }
-        ]
+        ],
+        background : {
+            src:"img/black.png"
+        },
+        player : {
+            x: 600,
+            y: 400
+        }
     }
 ]
