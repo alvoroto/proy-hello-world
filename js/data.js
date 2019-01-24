@@ -17,6 +17,16 @@ var totalGame = [
                 h: 600
             }
         
+        ],
+        collectableItems: [
+            {
+                x: 200,
+                y: 460,
+                w: 60,
+                h: 15,
+                isActive: true,
+                src: 'img/hello.png'
+            }
         ]
     }
 ]

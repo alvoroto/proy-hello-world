@@ -30,13 +30,19 @@ var Game = {
 
         var nivel = new Level(this)
         totalGame.forEach(function(level){
+            //platforms
             level.platforms.forEach(function(platform){
                 nivel.platforms.push(new Platform(this, platform.img, platform.x, platform.y, platform.w, platform.h));
             }.bind(this))
             this.levels.push(nivel);
+            //collectable items
+            level.collectableItems.forEach(function(collectableItem){
+                nivel.collectableItems.push(new Item(this, collectableItem.src, collectableItem.x, collectableItem.y, collectableItem.w, collectableItem.h, collectableItem.isActive))
+            }.bind(this))
         }.bind(this))
 
         this.platforms = this.levels[this.loadLevel].platforms;
+        this.collectableItems = this.levels[this.loadLevel].collectableItems;
         //creacion de las plataformas provisionales
 
         // var platform_1 = new Platform(this,"img/hello.png", 300, 470, 1000, 200, false, true);
@@ -63,12 +69,12 @@ var Game = {
         // this.platforms.push(platform_11);
         //
         //creacion de los collectItems provisionales
-        var item_1 = new HelloItem(this, 100, 460, 60, 15, true);
-        var item_2 = new WorldItem(this, 450, 220, 60, 15, false);
-        var item_3 = new EndItem(this, 800, 120, 50, 20, false);
-        this.collectableItems.push(item_1);
-        this.collectableItems.push(item_2);
-        this.collectableItems.push(item_3);
+        // var item_1 = new HelloItem(this, 100, 460, 60, 15, true);
+        // var item_2 = new WorldItem(this, 450, 220, 60, 15, false);
+        // var item_3 = new EndItem(this, 800, 120, 50, 20, false);
+        // this.collectableItems.push(item_1);
+        // this.collectableItems.push(item_2);
+        // this.collectableItems.push(item_3);
 
         this.interval = setInterval(function () {
             this.clear();
