@@ -5,11 +5,12 @@ function Item(game, x, y, w, h, isActive){
     this.w = w;
     this.h = h;
     this.isActive = isActive;
+    this.type = "";
     this.img = new Image();
-    this.img.src = 'img/hello_anim.png';
+    this.img.src = 'img/hello.png';
     // número de imágenes diferentes
-    this.img.frames = 5;
-    this.img.framesTo = 4;
+    this.img.frames = 8;
+    this.img.framesTo = 7;
     this.img.framesFrom = 0;
     this.img.frameIndex = 1;
     this.img.framesX = 0;
@@ -46,3 +47,41 @@ Item.prototype.animateItem = function() {
       if (this.img.frameIndex > this.img.framesTo) this.img.frameIndex = this.img.framesFrom;
     }
   };
+
+  Item.prototype.setAnimationParams = function(framesFrom, framesTo, framesX=0, framesY=0, framesW=0, framesH=0) {
+    this.img.framesFrom = framesFrom;
+    this.img.framesTo = framesTo;
+    this.img.framesX = framesX;
+    this.img.framesY = framesY;
+    this.img.framesW = framesW;
+    this.img.framesH = framesH;
+  };
+
+
+function HelloItem(game, x, y, w, h, isActive){
+    Item.call(this, game, x, y, w, h, isActive);
+    this.type = "hello";
+    this.img = new Image();
+    this.img.src = 'img/hello_anim.png';
+    // número de imágenes diferentes
+    this.setAnimationParams(0,7)
+    this.img.frames = 8;
+    this.img.frameIndex = 1;
+}
+HelloItem.prototype = Object.create(Item.prototype);
+HelloItem.prototype.constructor = HelloItem;
+
+function WorldItem(game, x, y, w, h, isActive){
+    Item.call(this, game, x, y, w, h, isActive);
+    this.type = "hello";
+    this.img = new Image();
+    this.img.src = 'img/world_anim.png';
+    // número de imágenes diferentes
+    this.setAnimationParams(0,7)
+    this.img.frames = 8;
+    this.img.frameIndex = 1;
+}
+WorldItem.prototype = Object.create(Item.prototype);
+WorldItem.prototype.constructor = HelloItem;
+
+
