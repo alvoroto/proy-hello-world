@@ -1,8 +1,8 @@
 function Player(game) {
     this.game = game;
    
-    this.x = 0;
-    this.y = 30;
+    this.x = 100;
+    this.y = 100;
 
     //last position
     this.lx = this.x;

@@ -12,7 +12,7 @@ function Item(game, x, y, w, h, isActive){
     this.img.frames = 8;
     this.img.framesTo = 7;
     this.img.framesFrom = 0;
-    this.img.frameIndex = 1;
+    this.img.frameIndex = 0;
     this.img.framesX = 0;
     this.img.framesY = 0;
     this.img.framesW = 0;
