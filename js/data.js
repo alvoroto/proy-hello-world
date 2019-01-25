@@ -496,11 +496,11 @@ var totalGame = [
                 src: "img/abyss1.png",
             },
             {
+                x: 650,
+                y: 480,
+                w: 320,
+                h: 180,
                 src: "img/ston313.png",
-                x: 670,
-                y: 490,
-                w: 300,
-                h: 180
             }
         ],
         player : {
@@ -573,104 +573,6 @@ var totalGame = [
             x: 50,
             y: 350
         }
-    },
-    
-    
+    }
 
-    // {
-    //     level: 22,
-    //     platforms: [
-    //         {
-    //             img: "img/blue.png",
-    //             x: 0,
-    //             y: 440,
-    //             w: 1200,
-    //             h: 60
-    //         },
-    //         {
-    //             img: "img/blue.png",
-    //             x: 50,
-    //             y: 0,
-    //             w: 60,
-    //             h: 600
-    //         },
-    //         {
-    //             img: "img/green.png",
-    //             x: 800,
-    //             y: 350,
-    //             w: 200,
-    //             h: 200,
-    //             isDashBreakable: true,
-    //             isDownBreakable: true
-    //         }
-        
-    //     ],
-    //     backImages: [
-    //         {
-    //             x: 300,
-    //             y: 0,
-    //             w: 5,
-    //             h: 600,
-    //             src: "img/blue.png",
-    //         }
-    //     ],
-    //     frontImages: [
-    //         {
-    //             x: 400,
-    //             y: 0,
-    //             w: 5,
-    //             h: 600,
-    //             src: "img/blue.png",
-    //         }
-    //     ],
-    //     collectableItems: [
-    //         {
-    //             x: 400,
-    //             y: 360,
-    //             w: 60,
-    //             h: 15,
-    //             isActive: true,
-    //             src: "img/green.png",
-    //             damage: false
-    //         },
-    //         {
-    //             x: 200,
-    //             y: 360,
-    //             w: 60,
-    //             h: 15,
-    //             isActive: false,
-    //             src: "img/green.png",
-    //             damage: false
-    //         }
-    //     ],
-    //     powerItems: [
-    //         {
-    //             x: 111,
-    //             y: 460,
-    //             w: 15,
-    //             h: 15,
-    //             isActive: true,
-    //             src: "img/blue.png",
-    //             type:"dash"
-    //         }
-    //     ],
-    //     damageItems: [
-    //         {
-    //             x: 600,
-    //             y: 400,
-    //             w: 60,
-    //             h: 15,
-    //             isActive: true,
-    //             src: "img/red.png",
-    //             damage: true
-    //         }
-    //     ],
-    //     background: {
-    //         src:"img/grey.png"
-    //     },
-    //     player : {
-    //         x: 800,
-    //         y: 200
-    //     }
-    // }
 ]

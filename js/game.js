@@ -111,7 +111,7 @@ var Game = {
         this.powerItems.forEach(function (powerItem) {
             if (powerItem.isActive) {
                 powerItem.draw();
-                powerItem.animateItem(this.framesCounter);
+                powerItem.animateItem(framesCounter);
             }
         })
     },
@@ -240,8 +240,8 @@ var Game = {
 
             //front images
             if(level.frontImages){
-                level.frontImages.forEach(function(frontImages){
-                    nivel.frontImages.push(new Images(this.ctx, frontImages.x, frontImages.y, frontImages.w, frontImages.h, frontImages.src))
+                level.frontImages.forEach(function(frontImage){
+                    nivel.frontImages.push(new Images(this.ctx, frontImage.x, frontImage.y, frontImage.w, frontImage.h, frontImage.src))
                 }.bind(this))
             }
 
@@ -287,14 +287,14 @@ var Game = {
              //back images
              if(totalGame[this.currentLevel].backImages){
                 totalGame[this.currentLevel].backImages.forEach(function(backImage){
-                    nivel.backImages.push(new Image(this.ctx, backImage.x, backImage.y, backImage.w, backImage.h, backImage.src))
+                    nivel.backImages.push(new Images(this.ctx, backImage.x, backImage.y, backImage.w, backImage.h, backImage.src))
                 }.bind(this))
             }
 
             //front images
             if(totalGame[this.currentLevel].frontImages){
-                totalGame[this.currentLevel].frontImages.forEach(function(frontImages){
-                    nivel.frontImages.push(new Image(this.ctx, frontImages.x, frontImages.y, frontImages.w, frontImages.h, frontImages.src))
+                totalGame[this.currentLevel].frontImages.forEach(function(frontImage){
+                    nivel.frontImages.push(new Images(this.ctx, frontImage.x, frontImage.y, frontImage.w, frontImage.h, frontImage.src))
                 }.bind(this))
             }
 
