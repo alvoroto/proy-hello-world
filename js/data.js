@@ -36,6 +36,17 @@ var totalGame = [
                 src: "img/green.png"
             }
         ],
+        powerItems: [
+            {
+                x: 111,
+                y: 460,
+                w: 15,
+                h: 15,
+                isActive: true,
+                src: "img/blue.png",
+                type:"dash"
+            }
+        ],
         background: {
             src:"img/grey.png"
         },

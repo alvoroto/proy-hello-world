@@ -13,6 +13,7 @@ var Game = {
     platforms: [],
     collectableItems: [],
     damageItems: [],
+    powerItems: [],
     currentLevel:0,
     levels:[],
 
@@ -52,6 +53,7 @@ var Game = {
             this.player.move();
             this.detectItemCollision();
             this.detectDamageCollision();
+            this.detectPowerCollision();
             this.drawAll();
 
         }.bind(this), 1000 / this.fps);
@@ -93,11 +95,21 @@ var Game = {
         })
     },
 
+    drawPowerItems: function () {
+        this.powerItems.forEach(function (powerItem) {
+            if (powerItem.isActive) {
+                powerItem.draw();
+                powerItem.animateItem(this.framesCounter);
+            }
+        })
+    },
+
     drawAll: function () {
         this.background.draw();
         this.drawPlatforms();
         this.drawCollectItems();
         this.drawDamageItems();
+        this.drawPowerItems();
         this.player.draw();
     },
 
@@ -126,6 +138,22 @@ var Game = {
         }
     },
 
+    detectPowerCollision: function () {
+        var colItem = this.player.powerColision()
+        if (colItem >= 0) {
+            if (this.powerItems[colItem].isActive) {
+                this.powerItems[colItem].isActive = false;
+                if(this.powerItems[colItem].type == "dash"){
+                    this.player.abailableDash = true;
+                }else if(this.powerItems[colItem].type == "down"){
+                    this.player.abailableBreakDown = true;
+                }else if(this.powerItems[colItem].type == "jump"){
+                    this.player.abailableDoubleJump = true;
+                }
+            }
+        }
+    },
+
     changeLevel: function(){
         this.currentLevel++;
         if(this.currentLevel < this.levels.length){
@@ -137,9 +165,14 @@ var Game = {
         this.platforms = this.levels[this.currentLevel].platforms;
         this.collectableItems = this.levels[this.currentLevel].collectableItems;
         this.damageItems = this.levels[this.currentLevel].damageItems;
+        this.powerItems = this.levels[this.currentLevel].powerItems;
         this.background.img.src = this.levels[this.currentLevel].background.img.src;
         this.player.x = this.levels[this.currentLevel].playerX;
         this.player.y = this.levels[this.currentLevel].playerY;
+        this.player.abailableDash = false;
+        this.player.abailableBreakDown = false;
+        this.player.abailableDoubleJump = false;
+
     },
 
     loadData: function(){
@@ -160,6 +193,13 @@ var Game = {
             if(level.damageItems){
                 level.damageItems.forEach(function(damageItem){
                     nivel.damageItems.push(new Item(this.ctx, damageItem.src, damageItem.x, damageItem.y, damageItem.w, damageItem.h, damageItem.isActive, damageItem.damage))
+                }.bind(this))
+            }
+
+             //power items
+             if(level.powerItems){
+                level.powerItems.forEach(function(powerItem){
+                    nivel.powerItems.push(new Item(this.ctx, powerItem.src, powerItem.x, powerItem.y, powerItem.w, powerItem.h, powerItem.isActive, powerItem.damage, powerItem.type))
                 }.bind(this))
             }
 
@@ -192,6 +232,13 @@ var Game = {
             if(totalGame[this.currentLevel].damageItems){
                 totalGame[this.currentLevel].damageItems.forEach(function(damageItem){
                     nivel.damageItems.push(new Item(this.ctx, damageItem.src, damageItem.x, damageItem.y, damageItem.w, damageItem.h, damageItem.isActive, damageItem.damage))
+                }.bind(this))
+            }
+
+             //power items
+             if(totalGame[this.currentLevel].powerItems){
+                totalGame[this.currentLevel].powerItems.forEach(function(powerItem){
+                    nivel.powerItems.push(new Item(this.ctx, powerItem.src, powerItem.x, powerItem.y, powerItem.w, powerItem.h, powerItem.isActive, powerItem.damage, powerItem.type))
                 }.bind(this))
             }
 

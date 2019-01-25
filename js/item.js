@@ -1,11 +1,11 @@
-function Item(ctx,src, x, y, w, h, isActive, damage=false){
+function Item(ctx,src, x, y, w, h, isActive, damage=false, type=""){
     this.ctx = ctx;
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.isActive = isActive;
-    this.type = "";
+    this.type = type;
     this.img = new Image();
     this.img.src = src;
     this.damage = damage;
