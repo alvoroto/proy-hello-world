@@ -65,8 +65,273 @@ var totalGame = [
             y: 350
         }
     },
+
     {
         level: 1,
+        platforms: [
+            {
+                img: "img/black.png",
+                x: 0,
+                y: 0,
+                w: 2,
+                h: 600
+            },
+            {
+                img: "img/transparent.png",
+                x: 0,
+                y: 480,
+                w: 1200,
+                h: 2
+            },
+            {
+                img: "img/black.png",
+                x: 1200,
+                y: 0,
+                w: 2,
+                h: 600
+            }
+            ,
+            {
+                img: "img/break5.png",
+                x: 990,
+                y: 340,
+                w: 70,
+                h: 130,
+                isDashBreakable:true
+
+            },
+            {
+                img: "img/plat1.png",
+                x: 980,
+                y: 300,
+                w: 160,
+                h: 60
+
+            }
+        ],
+        collectableItems: [
+            {
+                x: 1090,
+                y: 360,
+                w: 50,
+                h: 50,
+                isActive: true,
+                src: "img/item.png"
+            },
+        ],
+        powerItems: [
+            {
+                x: 590,
+                y: 390,
+                w: 40,
+                h: 40,
+                isActive: true,
+                src: "img/power1.png",
+                type:"dash"
+            }
+        ],
+        background: {
+            src:"img/fondo0_7.png"
+        },
+        frontImages: [
+            {
+                x: 100,
+                y: 300,
+                w: 150,
+                h: 300,
+                src: "img/stone8.png",
+            },
+            {
+                x: 215,
+                y: 400,
+                w: 180,
+                h: 200,
+                src: "img/stone6.png",
+            }
+        ],
+        player : {
+            x: 50,
+            y: 350
+        }
+    },
+
+    {
+        level: 2,
+        platforms: [
+            {
+                img: "img/black.png",
+                x: 0,
+                y: 0,
+                w: 2,
+                h: 600
+            },
+            {
+                img: "img/transparent.png",
+                x: 0,
+                y: 480,
+                w: 1200,
+                h: 2
+            },
+            {
+                img: "img/break7.png",
+                x: 1010,
+                y: 300,
+                w: 190,
+                h: 40,
+                isDownBreakable:true
+
+            },
+            {
+                img: "img/black.png",
+                x: 1200,
+                y: 0,
+                w: 2,
+                h: 600
+            },
+            {
+                img: "img/columna1.png",
+                x: 860,
+                y: 390,
+                w: 70,
+                h: 80
+
+            },
+            {
+                img: "img/columna2.png",
+                x: 940,
+                y: 300,
+                w: 70,
+                h: 170
+
+            }
+        ],
+        collectableItems: [
+            {
+                x: 1060,
+                y: 360,
+                w: 50,
+                h: 50,
+                isActive: true,
+                src: "img/item.png"
+            },
+        ],
+        powerItems: [
+            {
+                x: 590,
+                y: 390,
+                w: 40,
+                h: 40,
+                isActive: true,
+                src: "img/power2.png",
+                type:"down"
+            }
+        ],
+        background: {
+            src:"img/fondo0_6.png"
+        },
+        frontImages: [
+            {
+                x: 100,
+                y: 300,
+                w: 150,
+                h: 300,
+                src: "img/stone8.png",
+            },
+            {
+                x: 215,
+                y: 400,
+                w: 180,
+                h: 200,
+                src: "img/stone6.png",
+            }
+        ],
+        player : {
+            x: 50,
+            y: 350
+        }
+    },
+
+    {
+        level: 4,
+        platforms: [
+            {
+                img: "img/black.png",
+                x: 0,
+                y: 0,
+                w: 2,
+                h: 600
+            },
+            {
+                img: "img/transparent.png",
+                x: 0,
+                y: 480,
+                w: 1200,
+                h: 2
+            },
+            {
+                img: "img/black.png",
+                x: 1200,
+                y: 0,
+                w: 2,
+                h: 600
+            },
+            {
+                img: "img/columna2.png",
+                x: 940,
+                y: 300,
+                w: 70,
+                h: 170
+
+            }
+        ],
+        collectableItems: [
+            {
+                x: 1060,
+                y: 360,
+                w: 50,
+                h: 50,
+                isActive: true,
+                src: "img/item.png"
+            },
+        ],
+        powerItems: [
+            {
+                x: 590,
+                y: 390,
+                w: 40,
+                h: 40,
+                isActive: true,
+                src: "img/power3.png",
+                type:"jump"
+            }
+        ],
+        background: {
+            src:"img/fondo0_8.png"
+        },
+        frontImages: [
+            {
+                x: 100,
+                y: 300,
+                w: 150,
+                h: 300,
+                src: "img/stone8.png",
+            },
+            {
+                x: 215,
+                y: 400,
+                w: 180,
+                h: 200,
+                src: "img/stone6.png",
+            }
+        ],
+        player : {
+            x: 50,
+            y: 350
+        }
+    },
+
+    {
+        level: 4,
         platforms: [
             {
                 img: "img/black.png",
@@ -126,7 +391,7 @@ var totalGame = [
     },
 
     {
-        level: 2,
+        level: 5,
         platforms: [
             {
                 img: "img/black.png",
@@ -216,7 +481,7 @@ var totalGame = [
         }
     },
     {
-        level: 3,
+        level: 10,
         platforms: [
             {
                 img: "img/black.png",
@@ -239,28 +504,10 @@ var totalGame = [
                 w: 2,
                 h: 600
             }
-            ,
-            {
-                img: "img/break5.png",
-                x: 990,
-                y: 340,
-                w: 70,
-                h: 130,
-                isDashBreakable:true
-
-            },
-            {
-                img: "img/plat1.png",
-                x: 980,
-                y: 300,
-                w: 160,
-                h: 60
-
-            }
         ],
         collectableItems: [
             {
-                x: 1090,
+                x: 590,
                 y: 360,
                 w: 50,
                 h: 50,
@@ -268,19 +515,8 @@ var totalGame = [
                 src: "img/item.png"
             },
         ],
-        powerItems: [
-            {
-                x: 590,
-                y: 390,
-                w: 40,
-                h: 40,
-                isActive: true,
-                src: "img/power1.png",
-                type:"dash"
-            }
-        ],
         background: {
-            src:"img/fondo0_2.png"
+            src:"img/fondo0_end.png"
         },
         frontImages: [
             {
@@ -289,6 +525,13 @@ var totalGame = [
                 w: 150,
                 h: 300,
                 src: "img/stone8.png",
+            },
+            {
+                x: 800,
+                y: 360,
+                w: 175,
+                h: 240,
+                src: "img/stone7.png",
             },
             {
                 x: 215,
@@ -303,6 +546,8 @@ var totalGame = [
             y: 350
         }
     },
+    
+    
 
     // {
     //     level: 22,

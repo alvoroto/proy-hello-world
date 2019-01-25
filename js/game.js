@@ -32,8 +32,13 @@ var Game = {
 
         this.reset();
 
-        // this.song = new Audio("../audio/greenpath.mp3");
-        // this.song.play();
+       // var playPromise = document.querySelector('video').play();
+
+        
+
+        this.song = new Audio("./audio/greenpath.mp3");
+        var playPromise = this.song.play();
+
 
         this.background = new Background(this.ctx, this.canvas.width, this.canvas.height);
         this.player = new Player(this)
