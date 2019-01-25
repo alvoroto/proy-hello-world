@@ -54,8 +54,99 @@ var totalGame = [
             }
         ],
         player : {
-            x: 600,
-            y: 400
+            x: 100,
+            y: 500
+        }
+    },
+
+    {
+        level: 2,
+        platforms: [
+            {
+                img: "img/black.png",
+                x: 0,
+                y: 0,
+                w: 2,
+                h: 600
+            },
+            {
+                img: "img/black.png",
+                x: 0,
+                y: 600,
+                w: 1200,
+                h: 2
+            },
+            {
+                img: "img/black.png",
+                x: 1200,
+                y: 0,
+                w: 2,
+                h: 600
+            },
+            {
+                img: "img/columna1.png",
+                x: 480,
+                y: 480,
+                w: 100,
+                h: 120
+            },
+            {
+                img: "img/columna2.png",
+                x: 600,
+                y: 360,
+                w: 100,
+                h: 240
+            },
+            {
+                img: "img/columna3.png",
+                x: 800,
+                y: 480,
+                w: 200,
+                h: 120
+            }
+
+        ],
+        collectableItems: [
+            {
+                x: 490,
+                y: 420,
+                w: 50,
+                h: 50,
+                isActive: true,
+                src: "img/item.png"
+            },
+            {
+                x: 640,
+                y: 200,
+                w: 50,
+                h: 50,
+                isActive: false,
+                src: "img/item.png"
+            },
+            {
+                x: 1020,
+                y: 540,
+                w: 50,
+                h: 50,
+                isActive: false,
+                src: "img/item.png"
+            },
+        ],
+        background: {
+            src:"img/fondo2.png"
+        },
+        frontImages: [
+            {
+                x: 180,
+                y: 180,
+                w: 220,
+                h: 620,
+                src: "img/abyss1.png",
+            },
+        ],
+        player : {
+            x: 100,
+            y: 500
         }
     },
 
