@@ -1,5 +1,71 @@
 var totalGame = [
     {
+        level: 0,
+        platforms: [
+            {
+                img: "img/black.png",
+                x: 0,
+                y: 0,
+                w: 2,
+                h: 600
+            },
+            {
+                img: "img/transparent.png",
+                x: 0,
+                y: 480,
+                w: 1200,
+                h: 2
+            },
+            {
+                img: "img/black.png",
+                x: 1200,
+                y: 0,
+                w: 2,
+                h: 600
+            }
+        ],
+        collectableItems: [
+            {
+                x: 590,
+                y: 360,
+                w: 50,
+                h: 50,
+                isActive: true,
+                src: "img/item.png"
+            },
+        ],
+        background: {
+            src:"img/fondo0_1.png"
+        },
+        frontImages: [
+            {
+                x: 100,
+                y: 300,
+                w: 150,
+                h: 300,
+                src: "img/stone8.png",
+            },
+            {
+                x: 800,
+                y: 360,
+                w: 175,
+                h: 240,
+                src: "img/stone7.png",
+            },
+            {
+                x: 215,
+                y: 400,
+                w: 180,
+                h: 200,
+                src: "img/stone6.png",
+            }
+        ],
+        player : {
+            x: 50,
+            y: 350
+        }
+    },
+    {
         level: 1,
         platforms: [
             {
