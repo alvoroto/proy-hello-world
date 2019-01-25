@@ -9,10 +9,10 @@ function Player(game) {
     this.ly = this.y;
   
     this.img = new Image();
-    this.img.src = 'img/p_low.png';
+    this.img.src = 'img/run.png';
 
     // número de imágenes diferentes
-    this.img.frames = 7;
+    this.img.frames = 12;
     this.img.framesTo = 0;
     this.img.framesFrom = 0;
     this.img.frameIndex = 0;
@@ -24,8 +24,8 @@ function Player(game) {
 
     
     // medidas de la imagen a representar en el canvas
-    this.w = 40;
-    this.h = 20;
+    this.w = 27;
+    this.h = 44;
 
     //velocidad
     this.vxInitial = 5;
@@ -47,15 +47,15 @@ function Player(game) {
     this.jumpVelocity = 20;
     this.doubleJumpVelocity = 15;
 
-    this.abailableDash = true;
+    this.abailableDash = false;
     this.dashVelocity = 20;
     this.dashCheck = 0;
     this.dahsFrames = 10;
     this.dashing = false;
 
-    this.abailableDoubleJump = !false;
+    this.abailableDoubleJump = false;
 
-    this.abailableBreakDown = true;
+    this.abailableBreakDown = false;
     this.breakDownVelocity = 40;
     this.breakingDown = false;
 
@@ -170,14 +170,27 @@ Player.prototype.move = function(){
     }
     if (this.keys[this.game.keys.LEFT_KEY]) {
         this.moveLeft();
-        this.setAnimationParams(4,6)
+        if(this.vx >= this.dashVelocity){
+            this.setAnimationParams(9,9)
+        } else{
+            this.setAnimationParams(0,3)
+        }
     } else if (this.keys[this.game.keys.RIGHT_KEY]) {
         this.moveRight();
-        this.setAnimationParams(1,3)
+        if(this.vx >= this.dashVelocity){
+            this.setAnimationParams(10,10)
+        } else{
+            this.setAnimationParams(4,7)
+        }
     }else{
-        this.setAnimationParams(0,0)
+        if(this.vy >= this.breakDownVelocity){
+            this.setAnimationParams(11,11)
+        }else{
+            this.setAnimationParams(8,8)
+        }
     }
     this.animateRun();
+   
 }
 
 /*
@@ -355,7 +368,7 @@ Player.prototype.animateImg = function() {
     if(this.img.frameIndex<this.img.framesFrom){
         this.img.frameIndex=this.img.framesFrom
     }
-    if (this.game.framesCounter % 10 === 0) {
+    if (this.game.framesCounter % 9 === 0) {
       this.img.frameIndex += 1;
       // Si el frame es el último, se vuelve al primero
       if (this.img.frameIndex > this.img.framesTo) this.img.frameIndex = this.img.framesFrom;

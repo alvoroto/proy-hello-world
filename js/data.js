@@ -15,7 +15,15 @@ var totalGame = [
                 y: 0,
                 w: 60,
                 h: 600
+            },
+            {
+                img: "img/blue.png",
+                x: 800,
+                y: 0,
+                w: 60,
+                h: 600
             }
+
         
         ],
         collectableItems: [
@@ -29,7 +37,7 @@ var totalGame = [
             }
         ],
         background: {
-            src:"img/black.png"
+            src:"img/grey.png"
         },
         player : {
             x: 600,
@@ -55,7 +63,7 @@ var totalGame = [
                 h: 600
             },
             {
-                img: "img/blue.png",
+                img: "img/green.png",
                 x: 800,
                 y: 350,
                 w: 200,
@@ -97,7 +105,7 @@ var totalGame = [
             }
         ],
         background: {
-            src:"img/black.png"
+            src:"img/grey.png"
         },
         player : {
             x: 800,
