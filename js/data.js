@@ -104,7 +104,7 @@ var totalGame = [
                 img: "img/plat1.png",
                 x: 980,
                 y: 300,
-                w: 160,
+                w: 300,
                 h: 60
 
             }
@@ -429,13 +429,34 @@ var totalGame = [
                 h: 240
             },
             {
-                img: "img/columna3.png",
-                x: 800,
-                y: 480,
-                w: 200,
-                h: 120
+                img: "img/plat2.png",
+                x: 410,
+                y: 260,
+                w: 120,
+                h: 50
             }
 
+        ],
+        damageItems: [
+            {
+                x: 700,
+                y: 450,
+                w: 200,
+                h: 120,
+                isActive: true,
+                src: "img/spike2.png"
+            }
+        ],
+        powerItems: [
+            {
+                x: 430,
+                y: 220,
+                w: 40,
+                h: 40,
+                isActive: true,
+                src: "img/power1.png",
+                type:"dash"
+            }
         ],
         collectableItems: [
             {
@@ -474,6 +495,13 @@ var totalGame = [
                 h: 620,
                 src: "img/abyss1.png",
             },
+            {
+                src: "img/ston313.png",
+                x: 670,
+                y: 490,
+                w: 300,
+                h: 180
+            }
         ],
         player : {
             x: 100,

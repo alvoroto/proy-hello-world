@@ -98,10 +98,11 @@ var Game = {
         })
     },
 
-    drawDamageItems: function () {
+    drawDamageItems: function (framesCounter) {
         this.damageItems.forEach(function (damageItem) {
             if (damageItem.isActive) {
                 damageItem.draw();
+                damageItem.animateItem(framesCounter);
             }
         })
     },
@@ -132,7 +133,7 @@ var Game = {
         this.drawBackImages()
         this.drawPlatforms();
         this.drawCollectItems(framesCounter);
-        this.drawDamageItems();
+        this.drawDamageItems(framesCounter);
         this.drawPowerItems(framesCounter);
         this.player.draw();
         this.drawFrontImages()
