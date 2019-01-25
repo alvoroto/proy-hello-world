@@ -10,10 +10,10 @@ function Item(ctx,src, x, y, w, h, isActive, damage=false, type=""){
     this.img.src = src;
     this.damage = damage;
     // número de imágenes diferentes
-    this.img.frames = 8;
-    this.img.framesTo = 7;
+    this.img.frames = 4;
+    this.img.framesTo = 3;
     this.img.framesFrom = 0;
-    this.img.frameIndex = 1;
+    this.img.frameIndex = 0;
     this.img.framesX = 0;
     this.img.framesY = 0;
     this.img.framesW = 0;

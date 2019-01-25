@@ -16,6 +16,10 @@ var Game = {
     powerItems: [],
     currentLevel:0,
     levels:[],
+    frontImages:[],
+    backImages:[],
+    framesCounter:0,
+
 
     /*
     Inicio del juego
@@ -54,7 +58,7 @@ var Game = {
             this.detectItemCollision();
             this.detectDamageCollision();
             this.detectPowerCollision();
-            this.drawAll();
+            this.drawAll(this.framesCounter);
 
         }.bind(this), 1000 / this.fps);
     },
@@ -77,11 +81,11 @@ var Game = {
         })
     },
 
-    drawCollectItems: function () {
+    drawCollectItems: function (framesCounter) {
         this.collectableItems.forEach(function (collectItem) {
             if (collectItem.isActive) {
                 collectItem.draw();
-                collectItem.animateItem(this.framesCounter);
+                collectItem.animateItem(framesCounter);
             }
         })
     },
@@ -90,12 +94,11 @@ var Game = {
         this.damageItems.forEach(function (damageItem) {
             if (damageItem.isActive) {
                 damageItem.draw();
-                damageItem.animateItem(this.framesCounter);
             }
         })
     },
 
-    drawPowerItems: function () {
+    drawPowerItems: function (framesCounter) {
         this.powerItems.forEach(function (powerItem) {
             if (powerItem.isActive) {
                 powerItem.draw();
@@ -104,13 +107,27 @@ var Game = {
         })
     },
 
-    drawAll: function () {
+    drawBackImages: function () {
+        this.backImages.forEach(function (images) {
+            images.draw();
+        })
+    },
+
+    drawFrontImages: function () {
+        this.frontImages.forEach(function (images) {
+            images.draw();
+        })
+    },
+
+    drawAll: function (framesCounter) {
         this.background.draw();
+        this.drawBackImages()
         this.drawPlatforms();
-        this.drawCollectItems();
+        this.drawCollectItems(framesCounter);
         this.drawDamageItems();
-        this.drawPowerItems();
+        this.drawPowerItems(framesCounter);
         this.player.draw();
+        this.drawFrontImages()
     },
 
     detectItemCollision: function () {
@@ -166,6 +183,8 @@ var Game = {
         this.collectableItems = this.levels[this.currentLevel].collectableItems;
         this.damageItems = this.levels[this.currentLevel].damageItems;
         this.powerItems = this.levels[this.currentLevel].powerItems;
+        this.backImages = this.levels[this.currentLevel].backImages;
+        this.frontImages = this.levels[this.currentLevel].frontImages;
         this.background.img.src = this.levels[this.currentLevel].background.img.src;
         this.player.x = this.levels[this.currentLevel].playerX;
         this.player.y = this.levels[this.currentLevel].playerY;
@@ -200,6 +219,20 @@ var Game = {
              if(level.powerItems){
                 level.powerItems.forEach(function(powerItem){
                     nivel.powerItems.push(new Item(this.ctx, powerItem.src, powerItem.x, powerItem.y, powerItem.w, powerItem.h, powerItem.isActive, powerItem.damage, powerItem.type))
+                }.bind(this))
+            }
+
+             //back images
+             if(level.backImages){
+                level.backImages.forEach(function(backImage){
+                    nivel.backImages.push(new Images(this.ctx, backImage.x, backImage.y, backImage.w, backImage.h, backImage.src))
+                }.bind(this))
+            }
+
+            //front images
+            if(level.frontImages){
+                level.frontImages.forEach(function(frontImages){
+                    nivel.frontImages.push(new Images(this.ctx, frontImages.x, frontImages.y, frontImages.w, frontImages.h, frontImages.src))
                 }.bind(this))
             }
 
@@ -239,6 +272,20 @@ var Game = {
              if(totalGame[this.currentLevel].powerItems){
                 totalGame[this.currentLevel].powerItems.forEach(function(powerItem){
                     nivel.powerItems.push(new Item(this.ctx, powerItem.src, powerItem.x, powerItem.y, powerItem.w, powerItem.h, powerItem.isActive, powerItem.damage, powerItem.type))
+                }.bind(this))
+            }
+
+             //back images
+             if(totalGame[this.currentLevel].backImages){
+                totalGame[this.currentLevel].backImages.forEach(function(backImage){
+                    nivel.backImages.push(new Image(this.ctx, backImage.x, backImage.y, backImage.w, backImage.h, backImage.src))
+                }.bind(this))
+            }
+
+            //front images
+            if(totalGame[this.currentLevel].frontImages){
+                totalGame[this.currentLevel].frontImages.forEach(function(frontImages){
+                    nivel.frontImages.push(new Image(this.ctx, frontImages.x, frontImages.y, frontImages.w, frontImages.h, frontImages.src))
                 }.bind(this))
             }
 
