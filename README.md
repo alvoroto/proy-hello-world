@@ -1,6 +1,6 @@
 <h1>Hollow World</h1>
 
-<a href="https://hollow-world.herokuapp.com/">https://hollow-world.herokuapp.com/</a>
+Pruebalo en: <a href="https://hollow-world.herokuapp.com/">https://hollow-world.herokuapp.com/</a>
 
 Proyecto Realizado para el Bootcamp de Web Dev en Ironhack.
 
